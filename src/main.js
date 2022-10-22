@@ -3,7 +3,7 @@ import IMask from "imask"
 
 const ccBgColor01 = document.querySelector(".cc-bg svg > g g:nth-child(1) path")
 const ccBgColor02 = document.querySelector(".cc-bg svg > g g:nth-child(2) path")
-const ccLogo = document.querySelector(".cc-logo span:nth-child(2) path")
+const ccLogo = document.querySelector(".cc-logo span:nth-child(2) img")
 
 function setCardType(type) {
   const colors = {
@@ -79,3 +79,42 @@ const cardNumberPattern = {
 }
 
 const cardNumberMasked = IMask(cardNumber, cardNumberPattern)
+
+const addButton = document.querySelector("#add-card")
+
+addButton.addEventListener("click", () => {
+  alert("Cartão adiconado!!")
+})
+
+document.querySelector("form").addEventListener("submit", (e) => {
+  e.preventDefault()
+})
+
+const cardHolder = document.querySelector("#card-holder")
+cardHolder.addEventListener("input", () => {
+  const ccHolder = document.querySelector(".cc-holder .value")
+
+  ccHolder.innerText = cardHolder.value.length > 0 ? cardHolder.value : 'FULANO DA SILVA'
+})
+
+securityCodeMasked.on("accept", () => {
+  const ccSecurity = document.querySelector(".cc-security .value")
+
+  ccSecurity.innerText = securityCodeMasked.value.length > 0 ? securityCodeMasked.value : '123'
+})
+
+cardNumberMasked.on("accept", () => {
+  const cardType = cardNumberMasked.masked.currentMask.cardType
+  
+  setCardType(cardType)
+  
+  const ccNumber = document.querySelector(".cc-number")
+
+  ccNumber.innerText = cardNumberMasked.value.length > 0 ? cardNumberMasked.value : '1234 5678 9012 3456'
+})
+
+expirationDateMasked.on("accept", () => {
+  const cardExpiration = document.querySelector(".cc-expiration .value")
+
+  cardExpiration.innerText = expirationDateMasked.value.length > 0 ? expirationDateMasked.value : '02/32'
+})
